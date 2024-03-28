@@ -1,0 +1,76 @@
+﻿<Window x:Class="Bildspel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bildspel"
+        mc:Ignorable="d"
+        Title="Image Slideshow" Height="400" Width="600">
+    <Grid>
+        <TabControl>
+            <!-- Tab 1: Bildspel -->
+            <TabItem Header="Bildspel">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="43*"/>
+                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="249*"/>
+                    </Grid.ColumnDefinitions>
+                    <!-- Bildvisare -->
+                    <Image x:Name="imgSlideshow" Stretch="Uniform" Grid.ColumnSpan="3" />
+
+                    <!-- Pilar för att bläddra -->
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Column="2" Margin="24,0,0,0">
+                        <Button Content="Spela automatiskt" FontSize="15" Height="25" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Click="StartSlideshow_Click"/>
+                        <Button Content="◄" Margin="5" Width="30" FontSize="20" Click="PreviousImage_Click"/>
+                        <Button Content="►" Margin="5" Width="30" FontSize="20" Click="NextImage_Click"/>
+                        <CheckBox Content="Slumpa bilder" FontSize="15" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" />
+                    </StackPanel>
+                    <TextBlock Grid.ColumnSpan="3"></TextBlock>
+                    <!-- Knapp för att spela upp automatiskt -->
+
+                    <!-- Checkbox för att välja slumpmässig ordning -->
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 2: Lägg till bilder -->
+            <TabItem Header="Lägg till bilder">
+                <Grid>
+                    <!-- Lista över alla tillgängliga bilder -->
+                    <ItemsControl x:Name="icAllImages" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="400">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Lägg till och ta bort knappar -->
+                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="420,10,0,0">
+                        <Button Content="Lägg till bild" Margin="5" Click="AddImage_Click"/>
+                        <Button Content="Ta bort bild" Margin="5" Click="RemoveImage_Click"/>
+                    </StackPanel>
+
+                    <!-- Lista över bilder som ingår i bildspelet -->
+                    <ItemsControl x:Name="icSelectedImages" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,10,10" Width="400">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
