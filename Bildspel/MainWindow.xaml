@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bildspel"
         mc:Ignorable="d"
-        Title="Image Slideshow" Height="400" Width="600">
+        Title="Image Slideshow" WindowState="Maximized" >
     <Grid>
         <TabControl>
             <!-- Tab 1: Bildspel -->
@@ -34,41 +34,53 @@
             </TabItem>
 
             <!-- Tab 2: Lägg till bilder -->
-            <TabItem Header="Lägg till bilder">
-                <Grid>
-                    <!-- Lista över alla tillgängliga bilder -->
-                    <ItemsControl x:Name="icAllImages" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10" Width="400">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+            <TabItem Header="Lägg till bilder" HorizontalAlignment="Left" Width="88">
+                <Grid ShowGridLines="True">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
 
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Bilder i bildspelet" FontSize="16" HorizontalAlignment="Center"></TextBlock>
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" Grid.Row="1">
+                        <ItemsControl ItemsSource="{Binding ChosenImages}" x:Name="icSelectedImages"  HorizontalAlignment="Stretch"  Margin="5" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding}" Width="70" Height="70" Margin="5"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+
+                    <!-- Lista över alla tillgängliga bilder -->
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" Grid.Row="3">
+                        <ItemsControl ItemsSource="{Binding AllImages}" x:Name="icAllImages"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="1" MouseDown="Border_MouseDown">
+                                        <Image Source="{Binding}" Width="70" Height="70" Margin="5" />
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
                     <!-- Lägg till och ta bort knappar -->
-                    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="420,10,0,0">
-                        <Button Content="Lägg till bild" Margin="5" Click="AddImage_Click"/>
-                        <Button Content="Ta bort bild" Margin="5" Click="RemoveImage_Click"/>
-                    </StackPanel>
+                    <Button Grid.Row="2" Content="Hämta bilder" FontSize="16" HorizontalAlignment="Center" Click="AddImage_Click"></Button>
 
                     <!-- Lista över bilder som ingår i bildspelet -->
-                    <ItemsControl x:Name="icSelectedImages" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,150,10,10" Width="400">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel IsItemsHost="True" Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding}" Width="100" Height="100" Margin="5"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
                 </Grid>
             </TabItem>
         </TabControl>
